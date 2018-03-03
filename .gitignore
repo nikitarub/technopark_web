@@ -99,3 +99,19 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Node.js
+/node_modules
+
+# Img
+/img
+
+# Css
+*.min.css
+
+# JS
+#.min.js
+
+# Json
+*.json
+
