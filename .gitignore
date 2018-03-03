@@ -110,7 +110,7 @@ ENV/
 *.min.css
 
 # JS
-#.min.js
+*.min.js
 
 # Json
 *.json
