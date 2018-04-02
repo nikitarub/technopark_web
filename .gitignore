@@ -54,6 +54,7 @@ coverage.xml
 *.log
 local_settings.py
 secret_settings.py
+/migrations
 
 # Flask stuff:
 instance/
@@ -105,7 +106,10 @@ ENV/
 /node_modules
 
 # Img
-/img
+.jpg
+.png
+.jpeg
+
 
 # Css
 *.min.css
@@ -118,3 +122,6 @@ ENV/
 
 # Secret
 *secret*
+
+# DB
+*db*
