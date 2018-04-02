@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if questions %}
+	
+	{% for question in questions %}
+
+		<div class="card text-center question-list-item">
+		  <div class="card-header">
+		  	<h4 class="card-title"><a href="{% url 'detail' %}">{{ question.question_title }}</a></h4>
+		  </div>
+		  <div class="card-body">
+		    
+
+		    <div class="row">
+			    <div class="col-md-2">
+					<img src="/static/img/tass_f.jpg", alt="", class="rounded-circle", height="60">
+					<div> 
+						<p class="card-text">{{ question.author }}</p>
+						<div class="btn-group btn-group-sm" role="group" aria-label="Likes">
+							  <button type="button" class="btn btn-outline-success">+</button>
+							  <button class="btn btn-outline-secondary disabled">{{ question.rating }}</button>
+							  <button type="button" class="btn btn-outline-secondary">-</button>
+						</div>
+						
+					</div>
+				
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-9">
+					<h6>Описание:</h6>
+					<p class="card-title"> {{ question.question_text }}</p>
+					 <a href="{% url 'detail' %}" class="btn btn-primary">Комментарии <span class="badge badge-light">{{ question.comments_count }}</span></a>
+				</div>    				
+			</div>
+
+		    
+		  </div>
+		  <div class="card-footer text-muted">
+
+		    Теги: 
+		  	{% for tag in question.tags %}
+			    <a href="/tag/{{tag}}">#{{ tag }}</a>
+			{% endfor %}
+		  </div>
+		</div>
+
+		<!-- <div class="row question-list-item">
+		<div class="col-md-2">
+			<img src="/static/img/tass_f.jpg", alt="">
+			<div> 
+				<button type="button" class="btn btn-primary">
+					Рейтинг:  <span class="badge badge-light">{{ question.rating }}</span>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-9">
+			<h3> <a href="{% url 'detail' %}">{{ question.question_title }}</a></h3>
+			<p>{{ question.question_text }}</p>
+		</div>    				
+		</div> -->
+        <!-- <li><a href="/questions/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+    {% endfor %}
+{% else %}
+    <div class="col-md-4 question-list-item">
+		<div class="card bg-light mb-3" style="max-width: 18rem;">
+	<div class="card-header">Данные не найдены</div>
+	<div class="card-body">
+	  <!-- <h5 class="card-title">Light card title</h5> -->
+	<p>Миньоны не нашли на сервере запрошенных данных((</p>
+	  
+	</div>
+	</div>
+	
+	</div>
+	</div>
+{% endif %}
+
+<br>
+<div class="btn-group btn-group-sm" role="group" aria-label="Pages">
+	{% if questions.has_previous %}
+    	<a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ questions.previous_page_number }}" >Туда</a>
+    {% endif %}
+
+	<button class="btn btn-outline-secondary disabled">{{ questions.number }} из {{ questions.paginator.num_pages }}</button>
+	{% if questions.has_next %}
+        <a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ questions.next_page_number }}">Сюда</a>
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock %}

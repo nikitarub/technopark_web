@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block ask %}
+
+
+<form action="/ask/" method="POST">
+{% csrf_token %}
+<span class="forms col-lg-12 col-md-12 col-sm-12">
+    <br>
+    <label class="txt" for="new_question" ><h3>Ваш вопрос: </h3></label>
+    <textarea class="form-control" id="new_question" rows="5" name="new_question"
+              placeholder="Максимально {{comment_max_lenght}} символов"
+              required>{{new_question}}</textarea>
+    <br>
+    <br>
+    <label class="txt" for="info" ><h3>Описание: </h3></label>
+    <textarea class="form-control" id="info" rows="5" name="info"
+              placeholder="Максимально {{comment_max_lenght}} символов"
+              required>{{info}}</textarea>
+
+    <label class="txt" for="tags" ><h3>Теги: </h3></label>
+     <input id="lastname" name="lastname" type="text" class="form-control"
+                                   placeholder="Максимально {{comment_max_lenght}} символов"
+                                   value="{{tags}}"/>
+    <br>
+    {% if error_in_comment == INCORRECT_INPUT %}
+    <div class="alert alert-warning" role="alert">
+        <p>{{ error_in_comment_message }}</p>
+    </div>
+  {% endif %}
+    <input class="submit btn btn-primary" role="button" type="submit" value="Отправить"/>
+</span>
+</form>
+
+
+
+{% endblock %}

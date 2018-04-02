@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block question_block %}
+{% if question %}
+	
+	
+	<div class="card text-center question-list-item">
+	  <div class="card-header">
+	  	<h4 class="card-title"><a href="{% url 'detail' %}">{{ question.question_title }}</a></h4>
+	  </div>
+	  <div class="card-body">
+	    
+
+	    <div class="row">
+		    <div class="col-md-2">
+				<img src="/static/img/tass_f.jpg", alt="", class="rounded-circle", height="60">
+				<div> 
+					<div> 
+						<p class="card-text">{{ question.author }}</p>
+						<div class="btn-group btn-group-sm" role="group" aria-label="Likes">
+							  <button type="button" class="btn btn-outline-success">+</button>
+							  <button class="btn btn-outline-secondary disabled">{{ question.rating }}</button>
+							  <button type="button" class="btn btn-outline-secondary">-</button>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-9">
+				<h6>Описание:</h6>
+				<p class="card-title"> {{ question.question_text }}</p>
+			</div>  
+		</div>
+		<div class="row"><div class="col-md-12"><h3> Ответы: </h3> </div> </div>
+			<div class="row">
+				<div class="col-md-12">
+				{% for comment in comments %}
+					<div class="card bg-light mb-3">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-md-2">
+									<img src="/static/img/tass_f.jpg", alt="", height="40", class="rounded-circle">
+				    				{{comment.comment_author}}
+								</div>
+
+								<div class="col-md-7">
+				    				
+				    			</div>
+								<div class="col-md-3">
+									<div class="custom-control custom-checkbox">
+										{% if comment.correct_answer %} <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
+										{% else %}
+										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+										{% endif %}
+									  
+									  <label class="form-check-label" for="defaultCheck1">Правильный ответ</label>
+									</div>
+								</div>
+		    					
+				    			
+				    		</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+		    					<div class="col ">
+				    				<p class="text-left">{{comment.comment_text}}</p>
+				    			</div>
+				    			
+				    		</div>
+				    	</div>
+				  	</div>
+				{% endfor %}
+
+
+				<div class="btn-group btn-group-sm" role="group" aria-label="Pages">
+					{% if comments.has_previous %}
+				    	<a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ comments.previous_page_number }}" >Туда</a>
+				    {% endif %}
+
+					<button class="btn btn-outline-secondary disabled">{{ comments.number }} из {{ comments.paginator.num_pages }}</button>
+					{% if comments.has_next %}
+				        <a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ comments.next_page_number }}">Сюда</a>
+				    {% endif %}
+
+				</div>
+
+
+				{% include "questions/comment_form.html" %}
+				
+			</div>  				
+		</div>
+
+	    
+	  </div>
+	  <div class="card-footer text-muted">
+	    Теги: 
+	  	{% for tag in question.tags %}
+		    <a href="/tag/{{tag}}">#{{ tag }}</a> 
+		{% endfor %}
+	  </div>
+	</div>
+    <!-- <li><a href="/questions/{{ question.id }}/">{{ question.question_text }}</a></li> -->
+
+
+{% else %}
+    <p>Вопрос не найден!</p>
+{% endif %}
+
+{% endblock %}
