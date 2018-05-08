@@ -1,19 +1,14 @@
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if object_list.has_previous %}
+            <a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ object_list.previous_page_number }}" >Туда</a>
+            
+        {% endif %}
 
+        <button class="btn btn-outline-secondary disabled">{{ object_list.number }} из {{ object_list.paginator.num_pages }}</button>
 
-<p> total: {{ questions|length }} </p>
-
-    <div class="pagination" style="color: lightpink">
-        <span class="step-links">
-            {% if questions.has_previous %}
-                <a href="?page={{ questions.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
-            </span>
-
-            {% if questions.has_next %}
-                <a href="?page={{ questions.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
+        {% if object_list.has_next %}
+            <a class="btn btn-outline-secondary btn-outline-info" role="button" href="?page={{ object_list.next_page_number }}">Сюда</a>
+        {% endif %}
+    </ul>
+</nav>

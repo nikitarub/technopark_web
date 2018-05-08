@@ -1,0 +1,65 @@
+
+    <div class="card text-center question-list-item">
+      <div class="card-header">
+        <h4 class="card-title"><a href="/question/{{question.id}}">{{ q.title }}</a></h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/static/img/tass_f.jpg", alt="", class="rounded-circle", height="60">
+                <div> 
+                    <div> 
+                        <p class="card-text">{{ q.author.login }}</p>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Likes">
+                              <button type="button" class="btn btn-outline-success">+</button>
+                              <button class="btn btn-outline-secondary disabled">{{ q.rating }}</button>
+                              <button type="button" class="btn btn-outline-secondary">-</button>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-9">
+                <h6>Описание:</h6>
+                <p class="card-title"> {{ q.text }}</p>
+            </div>  
+        </div>
+        <div class="row"><div class="col-md-12"><h3> Ответы: </h3> </div> </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                
+                    {% for comment in comments %}
+                            {% include "questions/comment.html" %}
+                    {% endfor %}
+
+                    {% include "pagination.html" with object_list=comments %}
+                </div>
+
+                
+
+                
+                
+            </div>   
+            <hr class="comment-list-delimiter">
+            
+                <form method="post" action="#">
+                    <div class="form-group">
+                        <textarea class="form-control" id="text" rows="3" placeholder="Ваш ответ"></textarea>
+                    </div>
+                    <button type="submit" class="submit btn btn-primary">Ответить</button>
+                </form>
+            </div>
+
+              <div class="card-footer text-muted">
+                Теги: 
+                {% for tag in q.tags.all %}
+                    <a href="/tag/{{tag}}">#{{ tag.name }} </a> 
+                {% endfor %}
+              </div>
+            </div>               
+        
+      
+    

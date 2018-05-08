@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Questions index{% endblock %}
+
+{% block content %}
+    <div class="row my-3">
+        <div class="col-md-4">
+            <h3 class="title-with-link-on-side">Hoooot</h3>
+        </div>
+
+    </div>
+    {% for q in questions %}
+        {% include "questions/all_question.html" %}
+    {% endfor %}
+
+    {% include "pagination.html" with object_list=questions  %}
+
+
+{% endblock %}

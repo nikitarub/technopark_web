@@ -1,34 +1,36 @@
 {% extends "base.html" %}
 
 
-{% block login_user %}
+{% block title %}{% endblock %}
 
 
-<form class="form-signin">
-  {% csrf_token %}
-  <div class="question-list-item"></div>
-  <div class="question-list-item"><h1>Вход</h1></div>
+{% block content %}
 
-  <label for="username">Username</label>
-  <div class="form-label-group">
-    <input type="text" id="username" class="form-control" placeholder="Username" value="{{username}}" required autofocus>
-  </div>
+<h3 class="my-3">Log In</h3>
+<form method="post">
+    <div class="form-row">
+        <label for="login" class="col-md-2 col-form-label my-4">Login</label>
+        <div class="col-md-10 my-4">
+            <input type="text" class="form-control" placeholder="Login" required>
+            <small class="form-text text-muted">From 4 to 16 symbols length.</small>
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="Password" class="col-md-2 col-form-label my-4">Password</label>
+        <div class="col-md-10 my-4">
+            <input type="password" class="form-control" placeholder="Password" required>
+            <small class="form-text text-muted">From 6 to 18 characters</small>
+        </div>
+    </div>
 
-  <div class="question-list-item"></div>
-
-  <label for="password">Пароль</label>
-  <div class="form-label-group">
-    <input type="password" id="password" class="form-control" placeholder="Пароль" value="{{password}}" required>
-    
-  </div>
-
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Запомнить меня
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-  
+    <div class="row justify-content-start my-4">
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success w-100">Log in</button>
+        </div>
+        <div class="col-md-10">
+            <a class="btn btn-outline-secondary mb-1" href="{% url 'register' %}">Create a new account</a>
+        </div>
+    </div>
 </form>
 
 {% endblock %}

@@ -1,19 +1,29 @@
 from django import forms
 
 
-class SignupForm(forms.Form):
-	"""docstring for LoginForm"""
-	username = forms.CharField(max_length=30, required=True)
-	firstname = forms.CharField(max_length=30)
-	lastname = forms.CharField(max_length=30)
-	email = forms.EmailField(required=True)
-	password = forms.CharField(min_length=8, max_length=30, required=True)
-	confirm_password = forms.CharField(min_length=8, max_length=30, required=True)
-	# avatar = forms.FileField()
 
 class LoginForm(forms.Form):
-	"""docstring for LoginForm"""
-	username = forms.CharField(initial='class', required=True)
-	email = forms.EmailField(required=True)
-	password = forms.CharField(initial='class', min_length=8, max_length=30, required=True)
-	
+    login = forms.CharField(max_length=32)
+    password = forms.CharField(max_length=32)
+
+
+class SignupForm(forms.Form):
+    login = forms.CharField(max_length=32)
+    email = forms.EmailField(max_length=32)
+    nickname = forms.CharField(max_length=32)
+    password = forms.CharField(max_length=32, widget=forms.PasswordInput())
+    password_confirmation = forms.CharField(max_length=32, widget=forms.PasswordInput())
+    avatar = forms.FileField(required=False)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if cleaned_data.get('password') != cleaned_data.get('password_confirmation'):
+            self.add_error('password_confirmation', 'Password and password confirmation must match')
+
+
+class ProfileSettingsForm(forms.Form):
+    email = forms.EmailField(max_length=32)
+    nickname = forms.CharField(max_length=32)
+    avatar = forms.FileField(required=False)
+

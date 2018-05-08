@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<h3 class="my-3">Settings</h3>
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <div class="form-row">
+        <label for="login" class="col-md-2 col-form-label my-4">Login</label>
+        <div class="col-md-10 my-4">
+            <input type="text" class="form-control" placeholder="Login" required>
+            <small class="form-text text-muted">From 4 to 16 symbols length.</small>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label for="email" class="col-md-2 col-form-label my-4">E-mail</label>
+        <div class="col-md-10 my-4">
+            <input type="text" class="form-control" placeholder="E-mail" required>
+            <small class="form-text text-muted">From 4 to 64 symbols length.</small>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label for="nick" class="col-md-2 col-form-label my-4">Nickname</label>
+        <div class="col-md-10 my-4">
+            <input type="text" class="form-control" placeholder="Nickname" required>
+            <small class="form-text text-muted">From 4 to 16 symbols length.</small>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label for="avatar" class="col-md-2 col-form-label my-4">Avatar</label>
+        <div class="col-md-3 my-4">
+                <img src="/static/img/smile.png"
+         class="rounded w-100 img-thumbnail mb-2">
+        </div>
+        <div class="col-md-7 my-4">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="avatar">
+                <small class="form-text text-muted">Up to 3 mb</small>
+                <label class="custom-file-label" for="avatar">Choose file</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-start my-4">
+        <div class="col-2">
+            <button type="submit" class="btn btn-success w-100">Save</button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+{% endblock %}

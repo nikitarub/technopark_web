@@ -1,62 +1,66 @@
 from django.db import models
-# Create your models here.
+from django.db.models import Count
 
-from datetime import datetime
+class QuestionManager(models.Manager):
+    def all_new(self):
+        return self.order_by('-date').all()
 
-from django.contrib.auth.models import AbstractUser
-# from questions.models import User
+    def all_rate(self):
+        return self.order_by('-rating').all()
 
-# Create your models here.
-
-
-def search_by_tag(object_list, tag):
-	object_list_ret = []
-	for object_item in object_list:
-		for object_tag in object_item["tags"]:
-			if tag == object_tag:
-				object_list_ret.append(object_item)
-				break
-	return object_list_ret
+    def all_questions_by_tag(self, tag_name):
+        return self.filter(tags=tag_name).all()
 
 
-def search_by_hot(object_list):
-	object_list_ret = []
-	for object_item in object_list:
-		for object_tag in object_item["tags"]:
-			if tag == object_tag:
-				object_list_ret.append(object_item)
-				break
-	return object_list_ret
+class AnswerManager(models.Manager):
+    def all_answers_by_question(self, question_id):
+        return self.filter(question__pk=question_id).all()
 
 
+class TagManager(models.Manager):
+    def with_question_count(self):
+        return self.annotate(questions_count=Count('question'))
 
+    def order_by_question_count(self):
+        return self.with_question_count().order_by('-questions_count')
 
+    def order_by_name_with_question_count(self):
+        return self.with_question_count().order_by('text')
 
-
-# Перенести в users/models
-class User(AbstractUser):
-	"""docstring for User"""
-	upload = models.ImageField(upload_to = 'uploads/%Y/%m/%d/')
-
-
+    def most_popular(self):
+        return self.order_by_question_count().all()[:5]
 
 class Tag(models.Model):
-	title = models.CharField(max_length=120, verbose_name=u"Заголовок тэга")
+    objects = TagManager()
+    name = models.CharField(max_length=30)
 
-	def __str__(self):
-		return self.title
-	
+
 
 class Question(models.Model):
-	"""docstring for Question"""
-	author = models.ForeignKey(User, on_delete=models.CASCADE)
+    objects = QuestionManager()
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    author = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag)
 
-	title = models.CharField(max_length=120, verbose_name=u"Заголовок вопроса")
-	text = models.TextField(verbose_name=u"Текст вопроса")
 
-	create_date = models.DateTimeField(default=datetime.now, verbose_name=u"Время создания вопроса")
+class Answer(models.Model):
+    objects = AnswerManager()
+    text = models.TextField()
+    author = models.ForeignKey('users.Profile', on_delete=models.CASCADE)
+    date_pub = models.DateTimeField(auto_now_add=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    correct = models.BooleanField(default=False)
+    rating = models.IntegerField(default=0)
 
-	is_active = models.BooleanField(default=True, verbose_name="Доступность поста")
-	tags = models.ManyToManyField(Tag, blank=True)
+
+
+
+
+
+
+
 
 

@@ -1,0 +1,85 @@
+<div class="card text-center question-list-item">
+          <div class="card-header">
+            <h4 class="card-title"><a href="{% url 'one_question_page' q.id%}">{{ q.title }}</a></h4>
+          </div>
+          <div class="card-body">
+            
+
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="/static/img/tass_f.jpg", alt="", class="rounded-circle", height="60">
+                    <div> 
+                        <p class="card-text">{{ q.author.login }}</p>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Likes">
+                              <button type="button" class="btn btn-outline-success">+</button>
+                              <button class="btn btn-outline-secondary disabled">{{ q.rating }}</button>
+                              <button type="button" class="btn btn-outline-secondary">-</button>
+                        </div>
+                        
+                    </div>
+                
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <h6>Описание:</h6>
+                    <p class="card-title"> {{ q.text }}</p>
+                     <a href="/question/{{question.id}}" class="btn btn-primary">Комментарии <span class="badge badge-light">{{ q.answer_set.count }}</span></a>
+                </div>                  
+            </div>
+
+            
+          </div>
+          <div class="card-footer text-muted">
+
+            Теги: 
+            {% for tag in question.tags %}
+                <a href="/tag/{{tag}}">#{{ tag }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        
+
+
+
+
+
+   <!--  <div class="card bg-light my-3 w-85">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mx-4 d-flex">
+                        <img src="/static/img/smile.png" style="max-height: 60px;"
+                             class="rounded float-right img-fluid" alt="...">
+                    </div>
+                    <div class="mx-1 p-3">
+                        <button type="button" class="btn btn-success btn-sm mx-1"><span class="glyphicons glyphicons-plus">+</span></button>
+                        <button class="btn btn-secondary btn-disabled w-25 btn-sm mx-1" disabled>{{ q.rating }}</button>
+                        <button type="button" class="btn btn-danger btn-sm mx-1"><span class="glyphicons glyphicons-plus">-</span></button>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8">
+                    <div>
+                        <a class="card-title ml-1 logo-button h3" href="{% url 'one_question_page' q.id %}">{{ q.title }}</a>
+                        <p class="card-text ml-1">{{ q.text }}</p>
+                    </div>
+                    <div class="ml-1 my-3 row">
+                        <a class="logo-button" href="#">Answer
+                            <span class="badge badge-secondary">{{ q.answer_set.count }}</span></a>
+                        <div class="ml-3 row">
+                            <p class="logo-button">Tags: </p>
+                            {% for tag in q.tags.all%}
+                                <a class="mx-3 logo-button" href="#">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+ -->

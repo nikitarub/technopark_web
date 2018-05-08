@@ -1,38 +1,75 @@
 {% extends "base.html" %}
 
 
-{% block ask %}
+{% block title %}New question{% endblock %}
 
 
-<form action="/ask/" method="POST">
-{% csrf_token %}
-<span class="forms col-lg-12 col-md-12 col-sm-12">
-    <br>
-    <label class="txt" for="new_question" ><h3>Ваш вопрос: </h3></label>
-    <textarea class="form-control" id="new_question" rows="5" name="new_question"
-              placeholder="Максимально {{comment_max_lenght}} символов"
-              required>{{new_question}}</textarea>
-    <br>
-    <br>
-    <label class="txt" for="info" ><h3>Описание: </h3></label>
-    <textarea class="form-control" id="info" rows="5" name="info"
-              placeholder="Максимально {{comment_max_lenght}} символов"
-              required>{{info}}</textarea>
+{% block content %}
 
-    <label class="txt" for="tags" ><h3>Теги: </h3></label>
-     <input id="lastname" name="lastname" type="text" class="form-control"
-                                   placeholder="Максимально {{comment_max_lenght}} символов"
-                                   value="{{tags}}"/>
-    <br>
-    {% if error_in_comment == INCORRECT_INPUT %}
-    <div class="alert alert-warning" role="alert">
-        <p>{{ error_in_comment_message }}</p>
+<h3 class="my-3">Ask a new question!</h3>
+<form method="post" class="needs-validation" novalidate>
+    <div class="form-row">
+        <label for="colFormLabel" class="col-md-2 col-form-label">Title</label>
+        <div class="col-md-10 mb-3">
+            <input type="text" class="form-control" placeholder="Title" required>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
     </div>
-  {% endif %}
-    <input class="submit btn btn-primary" role="button" type="submit" value="Отправить"/>
-</span>
+
+    <div class="form-row">
+        <label for="colFormLabel" class="col-md-2 col-form-label">Text</label>
+        <div class="col-md-10 mb-3">
+            <textarea class="form-control" rows="10"></textarea>
+            <small class="form-text text-muted">
+                No more than 5000 characters!
+            </small>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label for="colFormLabel" class="col-md-2 col-form-label">Tags</label>
+        <div class="col-md-10 mb-3">
+            <input type="text" class="form-control" placeholder="Tags" required>
+            <div class="invalid-feedback">
+                Please fill this gap!
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-start my-4">
+        <div class="col-2">
+            <button type="submit" class="btn btn-success w-100">Ask</button>
+        </div>
+    </div>
+
 </form>
 
+
+<script>
+
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 
 
 {% endblock %}

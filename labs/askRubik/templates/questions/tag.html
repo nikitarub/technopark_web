@@ -1,83 +1,13 @@
 {% extends "base.html" %}
 
-{% block tag %}
-{% if questions %}
-	
-	{% for question in questions %}
+{% block title %}Tags{% endblock %}
 
-		<div class="card text-center question-list-item">
-		  <div class="card-header">
-		  	<h4 class="card-title"><a href="{% url 'detail' %}">{{ question.question_title }}</a></h4>
-		  </div>
-		  <div class="card-body">
-		    
-
-		    <div class="row">
-			    <div class="col-md-2">
-					<img src="/static/img/tass_f.jpg", alt="", class="rounded-circle", height="60">
-					<div> 
-						<p class="card-text">{{ question.author }}</p>
-						<div class="btn-group btn-group-sm" role="group" aria-label="Likes">
-							  <button type="button" class="btn btn-outline-success">+</button>
-							  <button class="btn btn-outline-secondary disabled">{{ question.rating }}</button>
-							  <button type="button" class="btn btn-outline-secondary">-</button>
-						</div>
-						
-					</div>
-				
-				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-9">
-					<h6>Описание:</h6>
-					<p class="card-title"> {{ question.question_text }}</p>
-					 <a href="{% url 'detail' %}" class="btn btn-primary">Комментарии <span class="badge badge-light">{{ question.comments_count }}</span></a>
-				</div>    				
-			</div>
-
-		    
-		  </div>
-		  <div class="card-footer text-muted">
-
-		    Теги: 
-		  	{% for tag in question.tags %}
-			    <a href="/tag/{{tag}}">#{{ tag }}</a>
-			{% endfor %}
-		  </div>
-		</div>
-
-
-
+{% block content %}
+    <h3 class="my-3">Tag: {{ tag }}</h3>
+    {% for q in questions %}
+        {% include "questions/all_question.html" %}
     {% endfor %}
-<div class="btn-group btn-group-sm" role="group" aria-label="Pages">
-	{% if questions.has_previous %}
-    	<a href="?page={{ questions.previous_page_number }}"><button type="button" class="btn btn-outline-info">Туда</button></a>
-    {% endif %}
 
-	<button class="btn btn-outline-secondary disabled">{{ questions.number }} из {{ questions.paginator.num_pages }}</button>
-	{% if questions.has_next %}
-        <a href="?page={{ questions.next_page_number }}"><button type="button" class="btn btn-outline-info">Сюда</button></a>
-    {% endif %}
-
-</div>
-
-{% else %}
-<div class="question-list-item"></div>
-
-<div class="row">
-	<div class="col-md-12">
-    
-	  <!-- <h5 class="card-title">Light card title</h5> -->
-	<h1>Миньоны не нашли на сервере запрошенных данных((</h1>
-	  
-	
-	</div>
-</div>
-
-
-
-{% endif %}
-
-
-
+    {% include "pagination.html" with object_list=questions %}
 
 {% endblock %}

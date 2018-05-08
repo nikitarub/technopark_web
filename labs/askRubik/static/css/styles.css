@@ -1,0 +1,54 @@
+html {
+	position: relative;
+	height: 100%;
+	max-height: 100%;
+
+}
+
+
+
+
+.blog-header {
+  line-height: 1;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+
+
+.btn-colour {
+    background-color: #59698d!important;
+    color: #fff!important;
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 1;
+}
+
+
+
+.logo-button {
+    color: #6c757d!important;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.25rem;
+}
+
+.navbar--right{
+    float: right;
+}
+
+.comment-list-delimiter {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.comment-list {
+    margin-top: 1em;
+}
